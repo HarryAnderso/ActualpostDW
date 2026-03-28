@@ -8,10 +8,7 @@ namespace NodeCanvas.Tasks.Actions {
 
 	public class CornerEvaluation : ActionTask {
 
-		//public GameObject goal1;
-		//public GameObject goal2;
-		//public GameObject goal3;
-		//public GameObject goal4;
+
 		public GameObject player;
 		public GameObject[] goals;
 		float pdistance;
@@ -21,20 +18,9 @@ namespace NodeCanvas.Tasks.Actions {
         //Use for initialization. This is called only once in the lifetime of the task.
         //Return null if init was successfull. Return an error string otherwise
         protected override string OnInit() {
-            foreach (GameObject goal in goals)
-            {
-                //GameObject tempgameobj = goal.GetComponent<GoalInformation>();
-                //goal.GetComponent<GoalInformation>();
-                //goal.GetComponent<GoalInformation>().captured = false;
+            
 
-                if (goal.GetComponent<GoalInformation>().captured == false)
-                {
-
-                }
-
-            }
-
-            return null;
+					return null;
 
 			
 		}
@@ -43,11 +29,44 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
-			EndAction(true);
+            foreach (GameObject goal in goals)
+            {
 
 
+                if (goal.GetComponent<GoalInformation>().captured == false)
+                {
+                    if (pdistance == 0)
+                    {
+                        pdistance = Vector3.Distance(player.transform.position, goal.transform.position);
+                    }
+                    else if (Vector3.Distance(player.transform.position, goal.transform.position) < pdistance)
+                    {
+                        pdistance = Vector3.Distance(player.transform.position, goal.transform.position);
+                    }
 
-		}
+
+                    if (gdistance == 0)
+                    {
+                        gdistance = Vector3.Distance(agent.transform.position, goal.transform.position);
+                    }
+                    else if (Vector3.Distance(agent.transform.position, goal.transform.position) < gdistance)
+                    {
+                        gdistance = Vector3.Distance(agent.transform.position, goal.transform.position);
+                    }
+                }
+
+                if (pdistance < gdistance)
+                {
+                    EndAction(false);
+                }
+                else
+                {
+                    EndAction(true);
+                }
+
+
+            }
+            }
 
 		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
