@@ -17,11 +17,7 @@ public class PlayerNav : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //clicktomove(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            //Debug.Log(Camera.main.ScreenPointToRay(Input.mousePosition));
-
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+            //the raycast will be used to get the point on the ground where the player clicked
             Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit);
             clicktomove(hit.point);
         }
@@ -29,6 +25,7 @@ public class PlayerNav : MonoBehaviour
 
     public void clicktomove(Vector3 pos)
     {
+        //y value is set to 0.5f to prevent the player from sinking into the ground or rising above the floor
         pos.y = 0.5f;
         agent.SetDestination(pos);
 
