@@ -9,9 +9,11 @@ namespace NodeCanvas.Tasks.Actions {
 	public class GuardChaseAT : ActionTask {
 		NavMeshAgent Navi;
 		public GameObject player;
+		private Blackboard bb;
 		protected override string OnInit() {
 
 			Navi = agent.GetComponent<NavMeshAgent>();
+			bb = agent.GetComponent<Blackboard>();
 
             return null;
 		}
@@ -25,6 +27,7 @@ namespace NodeCanvas.Tasks.Actions {
             }
             else
             {
+				//bb.SetVariableValue("ChosenCorner", null);
 				Navi.SetDestination(player.transform.position);
             }
         }

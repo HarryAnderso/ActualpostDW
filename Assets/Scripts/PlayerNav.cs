@@ -30,4 +30,12 @@ public class PlayerNav : MonoBehaviour
         agent.SetDestination(pos);
 
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

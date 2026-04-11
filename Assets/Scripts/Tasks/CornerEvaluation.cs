@@ -57,10 +57,12 @@ namespace NodeCanvas.Tasks.Actions {
 
                 if (pdistance < gdistance)
                 {
+                    Debug.Log(pdistance +"And " +gdistance);
                     EndAction(false);
                 }
                 else
                 {
+                    Debug.Log(pdistance + "And " + gdistance);
                     EndAction(true);
                 }
 
